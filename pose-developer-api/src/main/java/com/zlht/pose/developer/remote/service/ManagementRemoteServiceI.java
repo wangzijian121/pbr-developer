@@ -1,11 +1,13 @@
-package com.zlht.pose.developer.remote.management.service;
+package com.zlht.pose.developer.remote.service;
 
-import com.zlht.pose.developer.remote.management.client.ManagementClient;
 import com.zlht.pose.developer.remote.management.model.Result;
-import org.springframework.stereotype.Service;
 
 public interface ManagementRemoteServiceI {
 
+    /**
+     * 检查连接状态
+     */
+    Result checkConnect(String username, String password);
 
     /**
      * 登录

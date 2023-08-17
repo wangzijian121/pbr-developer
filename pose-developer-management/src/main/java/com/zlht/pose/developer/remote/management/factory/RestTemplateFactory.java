@@ -11,16 +11,13 @@ public class RestTemplateFactory {
 
     public static RestTemplate getRestTemplate() {
         RestTemplate restTemplate = new RestTemplate();
-
         // 添加一级缓存
         restTemplate.setRequestFactory(new SimpleClientHttpRequestFactory());
-
         // 添加基本Http头
         LinkedList<HttpMessageConverter<?>> messageConverters = new LinkedList<>();
         StringHttpMessageConverter stringConverter = new StringHttpMessageConverter();
         messageConverters.add(stringConverter);
         restTemplate.setMessageConverters(messageConverters);
-
         return restTemplate;
     }
 }

@@ -17,4 +17,5 @@ public class User {
     private String id;
     @TableField("name")
     private String name;
+
 }
