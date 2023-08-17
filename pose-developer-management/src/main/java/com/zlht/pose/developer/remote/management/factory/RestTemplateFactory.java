@@ -1,4 +1,4 @@
-package com.zlht.pose.developer.remote.management.client;
+package com.zlht.pose.developer.remote.management.factory;
 
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
