@@ -3,8 +3,8 @@
     <formats>
         <format>dir</format>
     </formats>
-    <includeBaseDirectory>false</includeBaseDirectory>
-    <baseDirectory>developer-api</baseDirectory>
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <baseDirectory>developer-management</baseDirectory>
     <fileSets>
         <!--bin 目录-->
         <fileSet>

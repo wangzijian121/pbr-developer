@@ -1,5 +1,10 @@
 server:
-  port: 8080
+  port: 8081
+
+remote:
+  management:
+    ip: 127.0.0.1
+    port: 8080
 
 spring:
 #  Mysql
@@ -15,3 +20,4 @@ spring:
   #      模板校验关闭
   thymeleaf:
     check-template-location: false
+

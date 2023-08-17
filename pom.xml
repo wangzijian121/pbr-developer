@@ -25,6 +25,7 @@
         <module>pose-developer-api</module>
         <module>pose-developer-dao</module>
         <module>pose-developer-tools</module>
+        <module>pose-developer-management</module>
         <module>pose-developer-dist</module>
     </modules>
     <properties>
@@ -65,7 +66,11 @@
                 <artifactId>pose-developer-dist</artifactId>
                 <version>${pose-developer.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.zlht.pose</groupId>
+                <artifactId>pose-developer-management</artifactId>
+                <version>${pose-developer.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.zlht.pose</groupId>
                 <artifactId>pose-developer-tools</artifactId>
