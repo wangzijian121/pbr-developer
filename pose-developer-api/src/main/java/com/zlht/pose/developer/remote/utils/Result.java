@@ -1,7 +1,6 @@
 
 package com.zlht.pose.developer.remote.utils;
 
-import com.zlht.pose.developer.remote.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,8 +28,4 @@ public class Result<T> {
      * data
      */
     private T data;
-
-    public Boolean checkResult() {
-        return this.code == Status.SUCCESS.getCode();
-    }
 }

@@ -26,6 +26,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableAutoConfiguration
-@MapperScan("com.example.dao.mapper")
+@MapperScan("com.zlht.pose.developer.dao.mapper")
 public class DaoConfiguration {
 }

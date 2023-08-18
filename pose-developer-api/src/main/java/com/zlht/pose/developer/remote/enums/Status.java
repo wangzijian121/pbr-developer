@@ -11,7 +11,7 @@ import java.util.Optional;
  */
 public enum Status {
 
-    SUCCESS(0, "success", "成功"),
+    SUCCESS(200, "success", "成功"),
     REQUEST_PARAMS_NOT_VALID_ERROR(10001, "request parameter {0} is not valid", "请求参数[{0}]无效"),
     ;
 

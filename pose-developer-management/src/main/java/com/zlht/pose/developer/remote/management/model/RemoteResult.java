@@ -1,9 +1,15 @@
 package com.zlht.pose.developer.remote.management.model;
 
-public class Result<T> {
-    /**
-     * status
-     */
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class RemoteResult<T> {
+
     private Integer code;
 
     /**
@@ -16,7 +22,4 @@ public class Result<T> {
      */
     private T data;
 
-    public Boolean checkResult() {
-        return this.code == 200;
-    }
 }

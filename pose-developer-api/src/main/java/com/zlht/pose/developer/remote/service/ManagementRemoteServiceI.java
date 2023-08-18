@@ -1,18 +1,20 @@
 package com.zlht.pose.developer.remote.service;
 
-import com.zlht.pose.developer.remote.management.model.Result;
+import com.zlht.pose.developer.remote.utils.Result;
+
+import java.util.Map;
 
 public interface ManagementRemoteServiceI {
 
     /**
      * 检查连接状态
      */
-    Result checkConnect(String username, String password);
+    boolean checkConnect();
 
     /**
      * 登录
      */
-    Result login(String username, String password);
+    Result<Map<String,Object>> login(String username, String password,String ip);
 
 
     /**

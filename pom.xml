@@ -46,11 +46,18 @@
         <guava.version>23.0</guava.version>
         <springfox-swagger.version>3.0.0</springfox-swagger.version>
         <spring-boot-starter-log4j2.version>3.1.0</spring-boot-starter-log4j2.version>
-
+        <jackson.version>2.12.5</jackson.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- Jackson Annotations -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.zlht.pose</groupId>
                 <artifactId>pose-developer-dao</artifactId>

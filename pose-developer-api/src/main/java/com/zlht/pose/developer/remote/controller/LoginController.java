@@ -1,6 +1,7 @@
 package com.zlht.pose.developer.remote.controller;
 
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.zlht.pose.developer.remote.service.ManagementRemoteServiceI;
 import com.zlht.pose.developer.remote.utils.Result;
 import io.swagger.annotations.Api;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 @RestController
 @Api(tags = "开发者管理", description = "开发者管理")
@@ -46,9 +49,20 @@ public class LoginController extends BaseController {
                                  @RequestParam String password,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
-        managementRemoteServiceI.checkConnect(username, password);
-        managementRemoteServiceI.login(username, password);
-        return null;
+        // user ip check
+        String ip = getClientIpAddress(request);
+        System.out.println(ip);
+        if (StringUtils.isEmpty(ip)) {
+            return error(10125, "Cant find ip！");
+        }
+        if (!managementRemoteServiceI.checkConnect()) {
+            logger.error("Remote ip or port is disconnect!");
+            return null;
+        }
+        Result<Map<String, Object>> result = managementRemoteServiceI.login(username, password, ip);
+        Cookie cookie = new Cookie("sessionId", result.getData().get("session_id").toString());
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+        return result;
     }
-
 }
