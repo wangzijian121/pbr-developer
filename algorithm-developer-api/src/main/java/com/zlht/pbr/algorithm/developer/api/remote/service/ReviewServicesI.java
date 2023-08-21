@@ -19,7 +19,7 @@ public interface ReviewServicesI {
      * @param review
      * @return
      */
-    Map<String, Object> commitReview(int userId, Review review, MultiValueMap<String, String> values);
+    Result  commitReview(int userId, Review review, MultiValueMap<String, String> values);
 
 
 

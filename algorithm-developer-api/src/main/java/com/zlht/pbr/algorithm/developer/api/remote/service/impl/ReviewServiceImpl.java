@@ -1,5 +1,6 @@
 package com.zlht.pbr.algorithm.developer.api.remote.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zlht.pbr.algorithm.developer.api.base.impl.BaseServiceImpl;
 import com.zlht.pbr.algorithm.developer.api.remote.service.ReviewServicesI;
@@ -16,11 +17,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 @Service
 public class ReviewServiceImpl extends BaseServiceImpl<Review> implements ReviewServicesI {
@@ -31,25 +30,37 @@ public class ReviewServiceImpl extends BaseServiceImpl<Review> implements Review
     private ManagementClientFactory managementClientFactory;
 
     @Override
-    public Map<String, Object> commitReview(int userId, Review review, MultiValueMap<String, String> values) {
+    public Result commitReview(int userId, Review review, MultiValueMap<String, String> values) {
 
-        //auth
-        Map<String, Object> map = new HashMap<>();
+        Result result = null;
         if (!canOperator(userId)) {
-            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
-            return map;
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
         ManagementClient managementClient = managementClientFactory.getManagementClient();
-        loadForManagementClient(managementClient,values);
+        loadForManagementClient(managementClient, values);
 
-        MultiValueMap<String, Object> multiValueMap= new LinkedMultiValueMap<>();
+        String requestBody = null;
+        try {
+            requestBody = objectMapper.writeValueAsString(review);
+        } catch (JsonProcessingException e) {
+            logger.error("Json parser Expection!");
+            e.printStackTrace();
+        }
 
-        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(multiValueMap, managementClient.getHeaders());
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, managementClient.getHeaders());
         ResponseEntity<String> responseEntity = managementClient.sendRequest("developer/commitReview", HttpMethod.POST, requestEntity);
 
-        return null;
+        try {
+            result = objectMapper.readValue(responseEntity.getBody(), Result.class);
+        } catch (IOException e) {
+            logger.error("response 解析失败！");
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 
     @Override
