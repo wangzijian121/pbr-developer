@@ -52,7 +52,6 @@ public class LoginController extends BaseController {
                                  HttpServletResponse response) {
         // user ip check
         String ip = getClientIpAddress(request);
-        System.out.println(ip);
         if (StringUtils.isEmpty(ip)) {
             return error(10125, "Cant find ip！");
         }

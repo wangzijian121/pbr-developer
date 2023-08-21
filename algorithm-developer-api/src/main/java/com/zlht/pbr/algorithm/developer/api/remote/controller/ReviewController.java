@@ -41,12 +41,12 @@ public class ReviewController extends BaseController {
     @ResponseStatus(HttpStatus.OK)
     @JsonIgnoreProperties(value = "id")
     public Result<Review> createReview(@ApiIgnore @RequestAttribute(value = "session.userId") int userId,
-                                       @RequestBody Review  review, HttpServletRequest request) {
+                                       @RequestBody Review review, HttpServletRequest request) {
 
         MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
         values.add("X-Real-IP", getClientIpAddress(request));
         values.add("sessionId", getSessionByRequest(request));
-        return reviewServicesI.commitReview(userId,review, values);
+        return reviewServicesI.commitReview(userId, review, values);
     }
 
     /**
@@ -65,12 +65,15 @@ public class ReviewController extends BaseController {
     public Result<PageInfo> queryReviewList(@ApiIgnore @RequestAttribute(value = "session.userId") int userId,
                                             @RequestParam(required = false, defaultValue = "1") int currentPage,
                                             @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                            @RequestParam(required = false) String name) {
+                                            @RequestParam(required = false) String keyword, HttpServletRequest request) {
 
         Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return null;
+        MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
+        values.add("X-Real-IP", getClientIpAddress(request));
+        values.add("sessionId", getSessionByRequest(request));
+        return reviewServicesI.queryReviewList(userId, currentPage, pageSize, keyword, values);
     }
 }

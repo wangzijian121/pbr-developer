@@ -31,10 +31,8 @@ public class EarningController extends BaseController {
 
 
     /**
-     * 登录
      *
-     * @param username
-     * @param password
+     *开发者查询收益
      * @return
      */
     @ApiOperation(value = "开发者收益管理", notes = "开发者收益管理")
@@ -45,7 +43,7 @@ public class EarningController extends BaseController {
     })
     @GetMapping(value = "/developer/getEarning")
     @ResponseStatus(HttpStatus.OK)
-    public Result developerLogin(@ApiIgnore @RequestAttribute(value = "session.userId") int userId,
+    public Result getEarning(@ApiIgnore @RequestAttribute(value = "session.userId") int userId,
                                  @RequestParam(required = false, defaultValue = "1") int currentPage,
                                  @RequestParam(required = false, defaultValue = "10") int pageSize,
                                  @RequestParam(required = false) String name,

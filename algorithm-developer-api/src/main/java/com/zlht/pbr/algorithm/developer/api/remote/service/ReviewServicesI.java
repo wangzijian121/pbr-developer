@@ -30,7 +30,7 @@ public interface ReviewServicesI {
      * @return
      */
 
-    Result<PageInfo> queryReviewList(int userId, int currentPage, int pageSize, String keyword);
+    Result<PageInfo> queryReviewList(int userId, int currentPage, int pageSize, String keyword,MultiValueMap<String, String> values);
 
 
 

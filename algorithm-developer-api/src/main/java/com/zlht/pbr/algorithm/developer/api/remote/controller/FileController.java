@@ -12,10 +12,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -32,18 +35,22 @@ public class FileController extends BaseController {
     })
     @PostMapping(value = "/developer/upload", consumes = "multipart/*", headers = "content-type=multipart/form-data")
     public Result upload(@ApiIgnore @RequestAttribute(value = "session.userId") int userId,
-                         @RequestPart("file") MultipartFile file) {
-        Map<String, Object> map = null;
-
-        return returnDataList(map);
+                         @RequestPart("file") MultipartFile file, HttpServletRequest request) {
+        MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
+        values.add("X-Real-IP", getClientIpAddress(request));
+        values.add("sessionId", getSessionByRequest(request));
+        return resourceServiceI.createResource(userId, file, values);
     }
 
     @ApiOperation(value = "开发者-文件管理")
     @ApiImplicitParam(name = "uuid", value = "资源的uuid", paramType = "query", required = true, dataType = "String")
     @GetMapping("/developer/download")
     public ResponseEntity download(@ApiIgnore @RequestAttribute(value = "session.userId") int userId,
-                                   @RequestParam String uuid) {
-        return null;
+                                   @RequestParam String uuid, HttpServletRequest request) {
+        MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
+        values.add("X-Real-IP", getClientIpAddress(request));
+        values.add("sessionId", getSessionByRequest(request));
+        return resourceServiceI.downloadResource(userId, uuid, values);
     }
 }
 
