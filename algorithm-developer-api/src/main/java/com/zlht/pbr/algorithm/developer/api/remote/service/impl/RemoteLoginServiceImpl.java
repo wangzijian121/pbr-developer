@@ -10,6 +10,7 @@ import com.zlht.pbr.algorithm.developer.remote.factory.ManagementClientFactory;
 import com.zlht.pbr.algorithm.developer.remote.model.RemoteResult;
 import com.zlht.pbr.algorithm.developer.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,8 @@ public class RemoteLoginServiceImpl extends BaseServiceImpl implements RemoteLog
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
         map.add("username", username);
         map.add("password", password);
-        ResponseEntity<String> responseEntity = managementClient.sendRequest("developer/login", HttpMethod.POST, map);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(map, managementClient.getHeaders());
+        ResponseEntity<String> responseEntity = managementClient.sendRequest("developer/login", HttpMethod.POST, requestEntity);
 
         ObjectMapper objectMapper = new ObjectMapper();
         RemoteResult<Map<String, Object>> remoteResult = null;

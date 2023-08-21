@@ -11,7 +11,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -49,10 +48,10 @@ public class ManagementClient {
     /**
      * 发送请求
      */
-    public ResponseEntity<String> sendRequest(String suffix, HttpMethod httpMethod, MultiValueMap<String, Object> map) {
+    public ResponseEntity<String> sendRequest(String suffix, HttpMethod httpMethod, HttpEntity requestEntity ) {
         RestTemplate restTemplate = RestTemplateFactory.getRestTemplate();
         String url = requestType + managementConfiguration.getIp() + ":" + managementConfiguration.getPort() + "/" + suffix;
-        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(map, headers);
+
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, httpMethod, requestEntity, String.class);
         System.out.println(responseEntity.getBody());
         return responseEntity;

@@ -1,14 +1,15 @@
 package com.zlht.pbr.algorithm.developer.api.base;
 
 
-
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.zlht.pbr.algorithm.developer.enums.Status;
 import com.zlht.pbr.algorithm.developer.utils.Result;
 import com.zlht.pbr.algorithm.developer.enums.Constants;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.Map;
 
 public class BaseController {
@@ -80,5 +81,16 @@ public class BaseController {
             }
         }
         return request.getRemoteAddr();
+    }
+
+    public static String getSessionByRequest(HttpServletRequest request) {
+        String sessionId = request.getHeader("sessionId");
+        if (sessionId == null) {
+            sessionId = Arrays.stream(request.getCookies())
+                    .filter(cookie -> cookie.getName().equals("sessionId"))
+                    .map(Cookie::getValue)
+                    .findFirst().get();
+        }
+        return sessionId;
     }
 }

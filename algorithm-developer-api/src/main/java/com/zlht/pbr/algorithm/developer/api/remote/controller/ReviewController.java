@@ -15,8 +15,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @Api(tags = "开发者审核管理", description = "开发者审核管理")
@@ -37,8 +41,12 @@ public class ReviewController extends BaseController {
     @ResponseStatus(HttpStatus.OK)
     @JsonIgnoreProperties(value = "id")
     public Result<Review> createReview(@ApiIgnore @RequestAttribute(value = "session.userId") int userId,
-                                       @RequestBody Review review) {
+                                       @RequestBody Review review, HttpServletRequest request) {
 
+        MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
+        values.add("X-Real-IP", getClientIpAddress(request));
+        values.add("sessionId", getSessionByRequest(request));
+        reviewServicesI.commitReview(userId,review, values);
         return null;
     }
 

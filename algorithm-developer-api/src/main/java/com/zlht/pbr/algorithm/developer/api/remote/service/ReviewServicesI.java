@@ -1,10 +1,10 @@
 package com.zlht.pbr.algorithm.developer.api.remote.service;
 
 
-import com.zlht.pbr.algorithm.developer.dao.entity.User;
 import com.zlht.pbr.algorithm.developer.model.Review;
 import com.zlht.pbr.algorithm.developer.utils.PageInfo;
 import com.zlht.pbr.algorithm.developer.utils.Result;
+import org.springframework.util.MultiValueMap;
 
 import java.util.Map;
 
@@ -19,7 +19,7 @@ public interface ReviewServicesI {
      * @param review
      * @return
      */
-    Map<String, Object> developCommitReview(int userId, Review review);
+    Map<String, Object> commitReview(int userId, Review review, MultiValueMap<String, String> values);
 
 
 
@@ -30,7 +30,7 @@ public interface ReviewServicesI {
      * @return
      */
 
-    Result<PageInfo> developerQueryReviewList(int userId, int currentPage, int pageSize, String keyword);
+    Result<PageInfo> queryReviewList(int userId, int currentPage, int pageSize, String keyword);
 
 
 
