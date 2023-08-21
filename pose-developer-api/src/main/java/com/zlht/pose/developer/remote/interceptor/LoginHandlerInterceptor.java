@@ -2,7 +2,6 @@ package com.zlht.pose.developer.remote.interceptor;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zlht.pose.developer.dao.entity.Session;
-import com.zlht.pose.developer.dao.entity.User;
 import com.zlht.pose.developer.dao.mapper.SessionMapper;
 import com.zlht.pose.developer.dao.mapper.UserMapper;
 import com.zlht.pose.developer.remote.controller.BaseController;
@@ -62,16 +61,11 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             // sessionId in header
             session = getSession(request, response, sessionId, ip);
         }
-        if (session == null) return false;
-        //TODO 通过Client获取远程 session
-        //TODO 通过Client获取远程 user
-        User user = userMapper.selectById(session.getUserId());
-        if (user == null) {
-            response.setStatus(402);
-            logger.info("用户非法！");
+        if (session == null) {
+            logger.error("session is null ");
             return false;
         }
-        request.setAttribute("session.user", user);
+        request.setAttribute("session.userId", session.getUserId());
         return true;
     }
 
@@ -83,16 +77,16 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         if (session == null) {
             response.setStatus(401);
             logger.info("未找到session,请登录后重试！" + sessionId + ",ip:" + ip);
-            request.setAttribute("session.user", null);
+            request.setAttribute("session.userId", null);
             return null;
         } else {
             Date expireTime = new Date();
             expireTime.setTime(session.getLastLoginTime().getTime() + sessionTimeout);
-            User user = userMapper.queryUserByToken(session.getId(), expireTime, new Date());
-            if (user == null) {
+            Session checkSession = sessionMapper.queryUserTokenById(session.getId(), expireTime, new Date());
+            if (checkSession == null) {
                 response.setStatus(401);
                 logger.info("用户session已过期!");
-                request.setAttribute("session.user", null);
+                request.setAttribute("session.userId", null);
                 return null;
             }
         }

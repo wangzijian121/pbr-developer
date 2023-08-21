@@ -16,4 +16,9 @@ public class BaseServiceImpl<T> implements BaseServiceI<T> {
         }
     }
 
+    @Override
+    public boolean canOperator(int userId) {
+        return userId > 0;
+    }
+
 }

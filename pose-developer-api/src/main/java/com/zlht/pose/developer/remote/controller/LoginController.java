@@ -60,9 +60,15 @@ public class LoginController extends BaseController {
             return null;
         }
         Result<Map<String, Object>> result = managementRemoteServiceI.login(username, password, ip);
-        Cookie cookie = new Cookie("sessionId", result.getData().get("session_id").toString());
-        cookie.setHttpOnly(true);
-        response.addCookie(cookie);
+        System.out.println(result);
+        if (result.getCode() == 200) {
+            Cookie cookie = new Cookie("sessionId", result.getData().get("session_id").toString());
+            cookie.setHttpOnly(true);
+            response.addCookie(cookie);
+        }
+
         return result;
     }
+
+
 }

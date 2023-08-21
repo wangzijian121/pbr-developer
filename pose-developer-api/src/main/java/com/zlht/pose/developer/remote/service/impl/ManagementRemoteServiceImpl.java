@@ -43,7 +43,7 @@ public class ManagementRemoteServiceImpl extends BaseServiceImpl implements Mana
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("username", username);
         map.add("password", password);
-        ResponseEntity<String> responseEntity = managementClient.sendRequest("developer_login", HttpMethod.POST, map);
+        ResponseEntity<String> responseEntity = managementClient.sendRequest("developer/login", HttpMethod.POST, map);
 
         ObjectMapper objectMapper = new ObjectMapper();
         RemoteResult<Map<String, Object>> remoteResult = null;

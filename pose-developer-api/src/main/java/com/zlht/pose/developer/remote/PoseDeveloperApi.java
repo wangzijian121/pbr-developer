@@ -32,8 +32,5 @@ public class PoseDeveloperApi implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         envService.printSwaggerAddress();
-        logger.info("Hello World!!info ");
-        logger.warn("Hello World!! ww");
-        logger.error("Hello World!!error");
     }
 }
