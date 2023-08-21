@@ -65,7 +65,7 @@ public class ReviewController extends BaseController {
     public Result<PageInfo> queryReviewList(@ApiIgnore @RequestAttribute(value = "session.userId") int userId,
                                             @RequestParam(required = false, defaultValue = "1") int currentPage,
                                             @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                            @RequestParam(required = false) String keyword, HttpServletRequest request) {
+                                            @RequestParam(required = false) String name, HttpServletRequest request) {
 
         Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
@@ -74,6 +74,6 @@ public class ReviewController extends BaseController {
         MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
         values.add("X-Real-IP", getClientIpAddress(request));
         values.add("sessionId", getSessionByRequest(request));
-        return reviewServicesI.queryReviewList(userId, currentPage, pageSize, keyword, values);
+        return reviewServicesI.queryReviewList(userId, currentPage, pageSize, name, values);
     }
 }
