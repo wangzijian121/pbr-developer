@@ -7,10 +7,14 @@ remote:
     port: 8080
 
 spring:
+  servlet:
+    multipart:
+      maxFileSize: 10000MB
+      maxRequestSize: 10000MB
 #  Mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/pose-developer?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3308/pose-developer?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
   #    MVC搜索路径
@@ -21,3 +25,12 @@ spring:
   thymeleaf:
     check-template-location: false
 
+
+files:
+  upload:
+    local:
+      path: C:\Users\Administrator\Desktop\client_file\
+      maxFileSize: 104857600
+
+session:
+  timeout: 43200000
