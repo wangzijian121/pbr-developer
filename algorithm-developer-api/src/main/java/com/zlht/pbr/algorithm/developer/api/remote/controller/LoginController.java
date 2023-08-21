@@ -2,7 +2,7 @@ package com.zlht.pbr.algorithm.developer.api.remote.controller;
 
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.zlht.pbr.algorithm.developer.base.BaseController;
+import com.zlht.pbr.algorithm.developer.api.base.BaseController;
 import com.zlht.pbr.algorithm.developer.api.remote.service.RemoteLoginServiceI;
 import com.zlht.pbr.algorithm.developer.utils.Result;
 import io.swagger.annotations.Api;
@@ -44,7 +44,7 @@ public class LoginController extends BaseController {
             @ApiImplicitParam(name = "username", value = "用户名", required = true, dataTypeClass = String.class),
             @ApiImplicitParam(name = "password", value = "密码", required = true, dataTypeClass = String.class)
     })
-    @PostMapping(value = "/developer_login")
+    @PostMapping(value = "/developer/login")
     @ResponseStatus(HttpStatus.OK)
     public Result developerLogin(@RequestParam String username,
                                  @RequestParam String password,

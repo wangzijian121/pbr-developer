@@ -25,9 +25,6 @@ import java.net.Socket;
 @Builder
 public class ManagementClient {
 
-
-    private final static String REAL_IP = "X-Real-IP";
-
     private String requestType;
     private Integer timeOut;
     private HttpHeaders headers;
@@ -52,19 +49,20 @@ public class ManagementClient {
     /**
      * 发送请求
      */
-    public ResponseEntity<String> sendRequest(String suffix, HttpMethod httpMethod, MultiValueMap<String, String> map) {
+    public ResponseEntity<String> sendRequest(String suffix, HttpMethod httpMethod, MultiValueMap<String, Object> map) {
         RestTemplate restTemplate = RestTemplateFactory.getRestTemplate();
         String url = requestType + managementConfiguration.getIp() + ":" + managementConfiguration.getPort() + "/" + suffix;
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(map, headers);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(map, headers);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, httpMethod, requestEntity, String.class);
+        System.out.println(responseEntity.getBody());
         return responseEntity;
     }
 
     /**
      * load header
      */
-    public void setClientHeader(String ip) {
-        this.headers.set(REAL_IP, ip);
+    public void setClientHeader(String headerName, String headerValue) {
+        this.headers.set(headerName, headerValue);
     }
 
 }

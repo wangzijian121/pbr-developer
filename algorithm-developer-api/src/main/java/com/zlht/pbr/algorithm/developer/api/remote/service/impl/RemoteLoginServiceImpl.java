@@ -1,7 +1,7 @@
 package com.zlht.pbr.algorithm.developer.api.remote.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zlht.pbr.algorithm.developer.base.impl.BaseServiceImpl;
+import com.zlht.pbr.algorithm.developer.api.base.impl.BaseServiceImpl;
 import com.zlht.pbr.algorithm.developer.api.developer.service.SessionServiceI;
 import com.zlht.pbr.algorithm.developer.enums.Status;
 import com.zlht.pbr.algorithm.developer.api.remote.service.RemoteLoginServiceI;
@@ -18,6 +18,7 @@ import org.springframework.util.MultiValueMap;
 
 import java.io.IOException;
 import java.util.Map;
+
 
 @Service
 public class RemoteLoginServiceImpl extends BaseServiceImpl implements RemoteLoginServiceI {
@@ -39,9 +40,9 @@ public class RemoteLoginServiceImpl extends BaseServiceImpl implements RemoteLog
     public Result login(String username, String password, String ip) {
 
         ManagementClient managementClient = managementClientFactory.getManagementClient();
-        managementClient.setClientHeader(ip);
+        managementClient.setClientHeader("X-Real-IP", ip);
 
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
         map.add("username", username);
         map.add("password", password);
         ResponseEntity<String> responseEntity = managementClient.sendRequest("developer/login", HttpMethod.POST, map);

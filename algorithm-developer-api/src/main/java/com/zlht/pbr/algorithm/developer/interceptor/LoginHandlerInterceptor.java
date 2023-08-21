@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zlht.pbr.algorithm.developer.dao.entity.Session;
 import com.zlht.pbr.algorithm.developer.dao.mapper.SessionMapper;
 import com.zlht.pbr.algorithm.developer.dao.mapper.UserMapper;
-import com.zlht.pbr.algorithm.developer.base.BaseController;
+import com.zlht.pbr.algorithm.developer.api.base.BaseController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

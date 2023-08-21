@@ -1,7 +1,7 @@
 package com.zlht.pbr.algorithm.developer.api.developer.service;
 
 
-import com.zlht.pbr.algorithm.developer.base.BaseServiceI;
+import com.zlht.pbr.algorithm.developer.api.base.BaseServiceI;
 import com.zlht.pbr.algorithm.developer.dao.entity.Session;
 import com.zlht.pbr.algorithm.developer.dao.entity.User;
 

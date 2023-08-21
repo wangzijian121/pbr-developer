@@ -1,10 +1,11 @@
 package com.zlht.pbr.algorithm.developer.api.remote.service;
 
+import com.zlht.pbr.algorithm.developer.api.base.BaseServiceI;
 import com.zlht.pbr.algorithm.developer.utils.Result;
 
 import java.util.Map;
 
-public interface RemoteLoginServiceI {
+public interface RemoteLoginServiceI extends BaseServiceI {
 
     /**
      * 检查连接状态

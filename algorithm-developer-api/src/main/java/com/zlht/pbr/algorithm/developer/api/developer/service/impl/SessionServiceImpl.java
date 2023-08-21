@@ -20,7 +20,7 @@ package com.zlht.pbr.algorithm.developer.api.developer.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zlht.pbr.algorithm.developer.api.developer.service.SessionServiceI;
-import com.zlht.pbr.algorithm.developer.base.impl.BaseServiceImpl;
+import com.zlht.pbr.algorithm.developer.api.base.impl.BaseServiceImpl;
 import com.zlht.pbr.algorithm.developer.dao.entity.Session;
 import com.zlht.pbr.algorithm.developer.dao.entity.User;
 import com.zlht.pbr.algorithm.developer.dao.mapper.SessionMapper;
