@@ -1,1 +1,1 @@
-AI-Pose-Algorithm-Web-Developer
+AI-algorithm-Algorithm-Web-Developer

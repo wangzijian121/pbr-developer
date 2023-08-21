@@ -1,0 +1,44 @@
+<assembly>
+    <id>bin</id>
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <baseDirectory>algorithm-dist-bin</baseDirectory>
+
+    <fileSets>
+        <fileSet>
+            <directory>${basedir}/../algorithm-developer-api/target/algorithm-developer-api</directory>
+            <outputDirectory>algorithm-developer-api</outputDirectory>
+            <!--    <excludes>
+                    <exclude>libs/</exclude>
+                    <exclude>bin/</exclude>
+                    <exclude>conf/</exclude>
+                </excludes>-->
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}/../algorithm-developer-management/target/algorithm-developer-management</directory>
+            <outputDirectory>algorithm-developer-management</outputDirectory>
+        </fileSet>
+
+        <fileSet>
+            <directory>${basedir}/../script</directory>
+            <outputDirectory>bin</outputDirectory>
+            <fileMode>0755</fileMode>
+            <directoryMode>0755</directoryMode>
+        </fileSet>
+
+        <fileSet>
+            <directory>${basedir}/release-docs</directory>
+            <outputDirectory>.</outputDirectory>
+        </fileSet>
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <unpack>false</unpack>
+            <outputDirectory>libs</outputDirectory>
+            <useProjectArtifact>true</useProjectArtifact>
+            <scope>runtime</scope>
+        </dependencySet>
+    </dependencySets>
+</assembly>
