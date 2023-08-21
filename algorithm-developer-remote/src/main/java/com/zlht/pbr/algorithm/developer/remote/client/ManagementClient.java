@@ -51,7 +51,6 @@ public class ManagementClient {
     public ResponseEntity<String> sendRequest(String suffix, HttpMethod httpMethod, HttpEntity requestEntity ) {
         RestTemplate restTemplate = RestTemplateFactory.getRestTemplate();
         String url = requestType + managementConfiguration.getIp() + ":" + managementConfiguration.getPort() + "/" + suffix;
-
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, httpMethod, requestEntity, String.class);
         System.out.println(responseEntity.getBody());
         return responseEntity;

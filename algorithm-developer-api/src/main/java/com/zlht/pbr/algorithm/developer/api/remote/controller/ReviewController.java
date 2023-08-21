@@ -41,13 +41,12 @@ public class ReviewController extends BaseController {
     @ResponseStatus(HttpStatus.OK)
     @JsonIgnoreProperties(value = "id")
     public Result<Review> createReview(@ApiIgnore @RequestAttribute(value = "session.userId") int userId,
-                                       @RequestBody Review review, HttpServletRequest request) {
+                                       @RequestBody Review  review, HttpServletRequest request) {
 
         MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
         values.add("X-Real-IP", getClientIpAddress(request));
         values.add("sessionId", getSessionByRequest(request));
-        reviewServicesI.commitReview(userId,review, values);
-        return null;
+        return reviewServicesI.commitReview(userId,review, values);
     }
 
     /**

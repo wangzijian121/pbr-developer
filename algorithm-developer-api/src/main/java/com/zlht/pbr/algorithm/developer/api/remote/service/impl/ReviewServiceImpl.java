@@ -30,7 +30,7 @@ public class ReviewServiceImpl extends BaseServiceImpl<Review> implements Review
     private ManagementClientFactory managementClientFactory;
 
     @Override
-    public Result commitReview(int userId, Review review, MultiValueMap<String, String> values) {
+    public Result commitReview(int userId, Review  review, MultiValueMap<String, String> values) {
 
         Result result = null;
         if (!canOperator(userId)) {
@@ -41,17 +41,16 @@ public class ReviewServiceImpl extends BaseServiceImpl<Review> implements Review
 
         ObjectMapper objectMapper = new ObjectMapper();
         ManagementClient managementClient = managementClientFactory.getManagementClient();
+        values.add("Content-Type", "application/json");
         loadForManagementClient(managementClient, values);
 
-        String requestBody = null;
+        String  reviewStr;
         try {
-            requestBody = objectMapper.writeValueAsString(review);
+            reviewStr=objectMapper.writeValueAsString(review);
         } catch (JsonProcessingException e) {
-            logger.error("Json parser Expection!");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, managementClient.getHeaders());
+        HttpEntity<String> requestEntity = new HttpEntity<>(reviewStr, managementClient.getHeaders());
         ResponseEntity<String> responseEntity = managementClient.sendRequest("developer/commitReview", HttpMethod.POST, requestEntity);
 
         try {

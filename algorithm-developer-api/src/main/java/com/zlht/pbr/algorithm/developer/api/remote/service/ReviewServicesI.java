@@ -26,7 +26,7 @@ public interface ReviewServicesI {
     /**
      * 开发者获取提交的审核
      *
-     * @param loginUser
+     * @param userId
      * @return
      */
 

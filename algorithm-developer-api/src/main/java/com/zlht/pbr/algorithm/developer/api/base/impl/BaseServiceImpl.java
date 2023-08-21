@@ -10,6 +10,7 @@ import org.springframework.util.MultiValueMap;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -29,8 +30,15 @@ public class BaseServiceImpl<T> implements BaseServiceI<T> {
     }
 
     @Override
-    public HttpHeaders loadForManagementClient(ManagementClient managementClient, MultiValueMap<String, String> values ) {
-        managementClient.getHeaders().addAll(values);
+    public HttpHeaders loadForManagementClient(ManagementClient managementClient, MultiValueMap<String, String> values) {
+//        managementClient.getHeaders().addAll(values);
+        for (Map.Entry<String, List<String>> entry : values.entrySet()) {
+            String key = entry.getKey();
+            List<String> valueList = entry.getValue();
+            for (String value : valueList) {
+                managementClient.getHeaders().set(key, value);
+            }
+        }
         return managementClient.getHeaders();
     }
 }
