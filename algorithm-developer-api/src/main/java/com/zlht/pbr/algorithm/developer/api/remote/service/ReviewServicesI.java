@@ -6,10 +6,7 @@ import com.zlht.pbr.algorithm.developer.utils.PageInfo;
 import com.zlht.pbr.algorithm.developer.utils.Result;
 import org.springframework.util.MultiValueMap;
 
-import java.util.Map;
-
 public interface ReviewServicesI {
-
 
 
     /**
@@ -19,8 +16,7 @@ public interface ReviewServicesI {
      * @param review
      * @return
      */
-    Result  commitReview(int userId, Review review, MultiValueMap<String, String> values);
-
+    Result commitReview(int userId, Review review, MultiValueMap<String, String> values);
 
 
     /**
@@ -30,8 +26,7 @@ public interface ReviewServicesI {
      * @return
      */
 
-    Result<PageInfo> queryReviewList(int userId, int currentPage, int pageSize, String keyword,MultiValueMap<String, String> values);
-
+    Result<PageInfo> queryReviewList(int userId, int currentPage, int pageSize, String keyword, String type, MultiValueMap<String, String> values);
 
 
 }

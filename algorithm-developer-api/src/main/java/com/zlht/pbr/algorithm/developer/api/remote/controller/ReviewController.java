@@ -54,18 +54,21 @@ public class ReviewController extends BaseController {
      *
      * @return review
      */
-    @ApiOperation(value = "开发者-查询审核信息", notes = "开发者-查询审核信息")
+    @ApiOperation(value = "开发者-查询算法审核信息", notes = "开发者-查询算法审核信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "name", value = "算法名", dataTypeClass = String.class)
+            @ApiImplicitParam(name = "name", value = "算法名", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "type", value = "数据类型(0普通算法 1专用算法  2普通数据集 3 专用数据集)", dataTypeClass = String.class)
     })
     @GetMapping(value = "/developer/getReview")
     @ResponseStatus(HttpStatus.OK)
     public Result<PageInfo> queryReviewList(@ApiIgnore @RequestAttribute(value = "session.userId") int userId,
                                             @RequestParam(required = false, defaultValue = "1") int currentPage,
                                             @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                            @RequestParam(required = false) String keyword, HttpServletRequest request) {
+                                            @RequestParam(required = false) String name,
+                                            @RequestParam String type,
+                                            HttpServletRequest request) {
 
         Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
@@ -74,6 +77,6 @@ public class ReviewController extends BaseController {
         MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
         values.add("X-Real-IP", getClientIpAddress(request));
         values.add("sessionId", getSessionByRequest(request));
-        return reviewServicesI.queryReviewList(userId, currentPage, pageSize, keyword, values);
+        return reviewServicesI.queryReviewList(userId, currentPage, pageSize, name, type, values);
     }
 }
