@@ -8,7 +8,6 @@ import com.zlht.pbr.algorithm.developer.enums.Status;
 import com.zlht.pbr.algorithm.developer.model.Review;
 import com.zlht.pbr.algorithm.developer.remote.client.ManagementClient;
 import com.zlht.pbr.algorithm.developer.remote.factory.ManagementClientFactory;
-import com.zlht.pbr.algorithm.developer.utils.PageInfo;
 import com.zlht.pbr.algorithm.developer.utils.Result;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -72,7 +71,7 @@ public class ReviewServiceImpl extends BaseServiceImpl<Review> implements Review
     }
 
     @Override
-    public Result queryReviewList(int userId, int currentPage, int pageSize, String keyword, MultiValueMap<String, String> values) {
+    public Result queryReviewList(int userId, int currentPage, int pageSize, String keyword, String  type,MultiValueMap<String, String> values) {
 
         //get请求
         Result result = null;
@@ -96,6 +95,7 @@ public class ReviewServiceImpl extends BaseServiceImpl<Review> implements Review
                 .queryParam("currentPage", currentPage)
                 .queryParam("pageSize", pageSize)
                 .queryParam("name", keyword)
+                .queryParam("type", type)
                 .build()
                 .toUriString();
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(null, managementClient.getHeaders());

@@ -1,9 +1,6 @@
 package com.zlht.pbr.algorithm.developer.model;
 
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -17,13 +14,12 @@ import java.util.Date;
 @NoArgsConstructor
 public class Review {
 
-    @TableId(type = IdType.AUTO)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
     @ApiModelProperty(value = "提交名", required = true)
     private String commitName;
     @ApiModelProperty(value = "支持的体育类型", required = true)
-    private String sportType;
+    private String  sportType;
     @ApiModelProperty(value = "开发者ID", required = true)
     private Integer developerId;
     @ApiModelProperty(value = "数据集类型(0普通数据集 1专用数据集)", required = true)
@@ -40,6 +36,5 @@ public class Review {
     private Integer status;
     @ApiModelProperty(value = "提交时间", required = true)
     private Date createTime;
-
 
 }
