@@ -74,7 +74,7 @@ public class LoginController extends BaseController {
      *
      * @return
      */
-    @ApiOperation(value = "开发者等出", notes = "开发者登出")
+    @ApiOperation(value = "开发者登出", notes = "开发者登出")
     @PostMapping(value = "/developer/developerLogout")
     @ResponseStatus(HttpStatus.OK)
     public Result developerLogout(@ApiIgnore @RequestAttribute(value = "session.userId") int userId, HttpServletRequest request) {
