@@ -2,6 +2,7 @@ package com.zlht.pbr.algorithm.developer.api.remote.service;
 
 import com.zlht.pbr.algorithm.developer.api.base.BaseServiceI;
 import com.zlht.pbr.algorithm.developer.utils.Result;
+import org.springframework.util.MultiValueMap;
 
 import java.util.Map;
 
@@ -15,16 +16,12 @@ public interface RemoteLoginServiceI extends BaseServiceI {
     /**
      * 登录
      */
-    Result<Map<String,Object>> login(String username, String password, String ip);
-
-
-    /**
-     *获取审核状态
-     */
-
+    Result<Map<String, Object>> login(String username, String password, String ip);
 
     /**
-     *获取收益信息
+     * 注销
      */
+    Result<Map<String, Object>> logout(String ip, int useId, MultiValueMap<String, String> values);
+
 
 }

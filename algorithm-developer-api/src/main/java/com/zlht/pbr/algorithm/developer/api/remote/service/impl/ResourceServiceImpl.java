@@ -97,4 +97,31 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
         ResponseEntity response = managementClient.sendRequest(suffix, HttpMethod.GET, requestEntity);
         return response;
     }
+
+    @Override
+    public Result deleteResource(int userId, String uuid, MultiValueMap<String, String> values) {
+        Result result = null;
+        if (!canOperator(userId)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        ManagementClient managementClient = managementClientFactory.getManagementClient();
+        loadForManagementClient(managementClient, values);
+        String suffix = UriComponentsBuilder.fromPath("developer/delete")
+                .queryParam("uuid", uuid)
+                .build()
+                .toUriString();
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(new LinkedMultiValueMap<>(), managementClient.getHeaders());
+        ResponseEntity<String> responseEntity = managementClient.sendRequest(suffix, HttpMethod.DELETE, requestEntity);
+        try {
+            result = objectMapper.readValue(responseEntity.getBody(), Result.class);
+        } catch (IOException e) {
+            logger.error("response 解析失败！");
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
 }

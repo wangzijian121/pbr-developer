@@ -67,4 +67,23 @@ public class RemoteLoginServiceImpl extends BaseServiceImpl implements RemoteLog
         return result;
     }
 
+    @Override
+    public Result logout(String ip, int useId,MultiValueMap<String, String> values) {
+        ManagementClient managementClient = managementClientFactory.getManagementClient();
+        managementClient.setClientHeader("X-Real-IP", ip);
+        loadForManagementClient(managementClient, values);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(new LinkedMultiValueMap<>(), managementClient.getHeaders());
+        ResponseEntity<String> responseEntity = managementClient.sendRequest("developer/logout", HttpMethod.POST, requestEntity);
+        ObjectMapper objectMapper = new ObjectMapper();
+        RemoteResult<Map<String, Object>> remoteResult = null;
+        sessionServiceI.signOut(ip, useId);
+        try {
+            remoteResult = objectMapper.readValue(responseEntity.getBody(), RemoteResult.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Result<Map<String, Object>> result = new Result(remoteResult.getCode(), remoteResult.getMsg(), remoteResult.getData());
+        return result;
+    }
+
 }

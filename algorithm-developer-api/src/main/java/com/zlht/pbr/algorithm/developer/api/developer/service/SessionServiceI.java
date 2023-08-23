@@ -32,7 +32,7 @@ public interface SessionServiceI extends BaseServiceI {
      * remove ip restrictions
      *
      * @param ip        no use
-     * @param loginUser login user
+     * @param userId login user
      */
-    Map<String, Object> signOut(String ip, User loginUser);
+    Map<String, Object> signOut(String ip, int userId );
 }

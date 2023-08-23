@@ -13,10 +13,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -68,5 +68,32 @@ public class LoginController extends BaseController {
         return result;
     }
 
+
+    /**
+     * 注销
+     *
+     * @return
+     */
+    @ApiOperation(value = "开发者等出", notes = "开发者登出")
+    @PostMapping(value = "/developer/developerLogout")
+    @ResponseStatus(HttpStatus.OK)
+    public Result developerLogout(@ApiIgnore @RequestAttribute(value = "session.userId") int userId, HttpServletRequest request) {
+        // user ip check
+        String ip = getClientIpAddress(request);
+        if (StringUtils.isEmpty(ip)) {
+            return error(10125, "Cant find ip！");
+        }
+        if (!remoteLoginServiceI.checkConnect()) {
+            logger.error("Remote ip or port is disconnect!");
+            return null;
+        }
+        String sessionId = getSessionByRequest(request);
+        MultiValueMap<String, String> values =new LinkedMultiValueMap<>();
+        values.add("X-Real-IP",ip);
+        values.add("sessionId",sessionId);
+        Result<Map<String, Object>> result = remoteLoginServiceI.logout(ip, userId,values);
+
+        return result;
+    }
 
 }

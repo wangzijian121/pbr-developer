@@ -42,7 +42,7 @@ public class FileController extends BaseController {
         return resourceServiceI.createResource(userId, file, values);
     }
 
-    @ApiOperation(value = "开发者-文件管理")
+    @ApiOperation(value = "开发者-下载文件")
     @ApiImplicitParam(name = "uuid", value = "资源的uuid", paramType = "query", required = true, dataType = "String")
     @GetMapping("/developer/download")
     public ResponseEntity download(@ApiIgnore @RequestAttribute(value = "session.userId") int userId,
@@ -52,5 +52,17 @@ public class FileController extends BaseController {
         values.add("sessionId", getSessionByRequest(request));
         return resourceServiceI.downloadResource(userId, uuid, values);
     }
+
+    @ApiOperation(value = "开发者-删除文件")
+    @ApiImplicitParam(name = "uuid", value = "资源的uuid", paramType = "query", required = true, dataType = "String")
+    @DeleteMapping("/developer/delete")
+    public Result deleteFile(@ApiIgnore @RequestAttribute(value = "session.userId") int userId,
+                             @RequestParam String uuid, HttpServletRequest request) {
+        MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
+        values.add("X-Real-IP", getClientIpAddress(request));
+        values.add("sessionId", getSessionByRequest(request));
+        return resourceServiceI.deleteResource(userId, uuid, values);
+    }
 }
+
 

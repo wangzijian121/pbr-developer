@@ -97,15 +97,15 @@ public class SessionServiceImpl extends BaseServiceImpl implements SessionServic
      * remove ip restrictions
      *
      * @param ip        no use
-     * @param loginUser login user
+     * @param userId login user
      */
     @Override
-    public Map<String, Object> signOut(String ip, User loginUser) {
+    public Map<String, Object> signOut(String ip, int userId) {
         Map<String, Object> map = new HashMap<>();
 
         try {
             QueryWrapper queryWrapper = new QueryWrapper();
-            queryWrapper.eq("user_id", loginUser.getId());
+            queryWrapper.eq("user_id",userId);
             queryWrapper.eq("ip", ip);
             Session session = sessionMapper.selectOne(queryWrapper);
             //delete session
@@ -115,7 +115,7 @@ public class SessionServiceImpl extends BaseServiceImpl implements SessionServic
                 return map;
             }
         } catch (Exception e) {
-            logger.warn("userId : {} , ip : {} , find more one session", loginUser.getId(), ip);
+            logger.warn("userId : {} , ip : {} , find more one session", userId, ip);
         }
         return map;
     }

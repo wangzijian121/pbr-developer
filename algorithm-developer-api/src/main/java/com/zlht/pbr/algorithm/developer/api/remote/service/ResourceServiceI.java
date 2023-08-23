@@ -19,6 +19,9 @@ public interface ResourceServiceI {
      * 下载文件
      */
     ResponseEntity downloadResource(int userId, String uuid,MultiValueMap<String, String> values);
-
+    /**
+     * 删除文件
+     */
+    Result deleteResource(int userId, String uuid,MultiValueMap<String, String> values);
 
 }
