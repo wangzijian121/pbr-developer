@@ -51,7 +51,7 @@ public class ReviewServiceImpl extends BaseServiceImpl<Review> implements Review
             result.setData(null);
             return result;
         }
-
+        review.setStatus(1);
         String reviewStr;
         try {
             reviewStr = objectMapper.writeValueAsString(review);
