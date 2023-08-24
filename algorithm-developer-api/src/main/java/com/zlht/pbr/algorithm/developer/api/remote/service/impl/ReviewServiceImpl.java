@@ -52,6 +52,7 @@ public class ReviewServiceImpl extends BaseServiceImpl<Review> implements Review
             return result;
         }
         review.setStatus(1);
+        review.setDeveloperId(userId);
         String reviewStr;
         try {
             reviewStr = objectMapper.writeValueAsString(review);
@@ -71,7 +72,7 @@ public class ReviewServiceImpl extends BaseServiceImpl<Review> implements Review
     }
 
     @Override
-    public Result queryReviewList(int userId, int currentPage, int pageSize, String keyword, String  type,MultiValueMap<String, String> values) {
+    public Result queryReviewList(int userId, int currentPage, int pageSize, String keyword, String type, MultiValueMap<String, String> values) {
 
         //get请求
         Result result = null;
