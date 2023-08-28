@@ -61,7 +61,7 @@ public class LoginController extends BaseController {
         }
         Result<Map<String, Object>> result = remoteLoginServiceI.login(username, password, ip);
         if (result.getCode() == 200) {
-            Cookie cookie = new Cookie("sessionId", result.getData().get("session_id").toString());
+            Cookie cookie = new Cookie("sessionId", result.getData().get("sessionId").toString());
             cookie.setHttpOnly(true);
             response.addCookie(cookie);
         }
