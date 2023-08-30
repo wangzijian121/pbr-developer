@@ -23,11 +23,11 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServiceI {
     private static final Logger logger = LogManager.getLogger(ResourceServiceImpl.class);

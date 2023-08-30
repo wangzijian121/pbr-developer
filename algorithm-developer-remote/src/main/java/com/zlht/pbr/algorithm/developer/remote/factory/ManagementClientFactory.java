@@ -7,6 +7,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author zi jian Wang
+ */
 @Component
 public class ManagementClientFactory {
     private final static String PROTOCOL = "http://";

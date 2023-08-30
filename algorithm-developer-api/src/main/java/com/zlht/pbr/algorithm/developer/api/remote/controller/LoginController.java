@@ -4,6 +4,7 @@ package com.zlht.pbr.algorithm.developer.api.remote.controller;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.zlht.pbr.algorithm.developer.api.base.BaseController;
 import com.zlht.pbr.algorithm.developer.api.remote.service.RemoteLoginServiceI;
+import com.zlht.pbr.algorithm.developer.enums.Status;
 import com.zlht.pbr.algorithm.developer.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -23,8 +24,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @RestController
-@Api(tags = "开发者管理", description = "开发者管理")
+@Api(tags = "开发者管理")
 public class LoginController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(LoginController.class);
@@ -60,7 +64,7 @@ public class LoginController extends BaseController {
             return null;
         }
         Result<Map<String, Object>> result = remoteLoginServiceI.login(username, password, ip);
-        if (result.getCode() == 200) {
+        if (result.getCode() == Status.SUCCESS.getCode()) {
             Cookie cookie = new Cookie("sessionId", result.getData().get("sessionId").toString());
             cookie.setHttpOnly(true);
             response.addCookie(cookie);
@@ -88,10 +92,10 @@ public class LoginController extends BaseController {
             return null;
         }
         String sessionId = getSessionByRequest(request);
-        MultiValueMap<String, String> values =new LinkedMultiValueMap<>();
-        values.add("X-Real-IP",ip);
-        values.add("sessionId",sessionId);
-        Result<Map<String, Object>> result = remoteLoginServiceI.logout(ip, userId,values);
+        MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
+        values.add("X-Real-IP", ip);
+        values.add("sessionId", sessionId);
+        Result<Map<String, Object>> result = remoteLoginServiceI.logout(ip, userId, values);
 
         return result;
     }

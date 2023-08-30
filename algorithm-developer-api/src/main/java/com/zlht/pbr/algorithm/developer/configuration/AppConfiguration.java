@@ -32,6 +32,8 @@ import java.util.Locale;
 
 /**
  * application configuration
+ *
+ * @author zijian Wang
  */
 @Configuration
 public class AppConfiguration implements WebMvcConfigurer {
@@ -102,6 +104,5 @@ public class AppConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void configureContentNegotiation(final ContentNegotiationConfigurer configurer) {
-        configurer.favorPathExtension(false);
     }
 }

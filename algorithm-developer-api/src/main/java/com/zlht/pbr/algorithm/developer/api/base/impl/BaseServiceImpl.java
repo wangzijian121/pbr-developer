@@ -1,18 +1,13 @@
 package com.zlht.pbr.algorithm.developer.api.base.impl;
 
-
-import com.zlht.pbr.algorithm.developer.enums.Status;
 import com.zlht.pbr.algorithm.developer.api.base.BaseServiceI;
+import com.zlht.pbr.algorithm.developer.enums.Status;
 import com.zlht.pbr.algorithm.developer.remote.client.ManagementClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.MultiValueMap;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class BaseServiceImpl<T> implements BaseServiceI<T> {
 
@@ -31,7 +26,6 @@ public class BaseServiceImpl<T> implements BaseServiceI<T> {
 
     @Override
     public HttpHeaders loadForManagementClient(ManagementClient managementClient, MultiValueMap<String, String> values) {
-//        managementClient.getHeaders().addAll(values);
         for (Map.Entry<String, List<String>> entry : values.entrySet()) {
             String key = entry.getKey();
             List<String> valueList = entry.getValue();

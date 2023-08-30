@@ -1,4 +1,3 @@
-
 package com.zlht.pbr.algorithm.developer.utils;
 
 import com.zlht.pbr.algorithm.developer.enums.Status;
@@ -10,6 +9,7 @@ import lombok.NoArgsConstructor;
  * result
  *
  * @param <T> T
+ * @author zi jian Wang
  */
 @Data
 @AllArgsConstructor
@@ -29,6 +29,7 @@ public class Result<T> {
      * data
      */
     private T data;
+
     public Boolean checkResult() {
         return this.code == Status.SUCCESS.getCode();
     }

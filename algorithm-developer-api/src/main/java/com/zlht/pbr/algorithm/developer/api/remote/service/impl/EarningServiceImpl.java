@@ -19,6 +19,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class EarningServiceImpl extends BaseServiceImpl implements EarningServiceI {
 
@@ -40,11 +43,12 @@ public class EarningServiceImpl extends BaseServiceImpl implements EarningServic
         ObjectMapper objectMapper = new ObjectMapper();
         ManagementClient managementClient = managementClientFactory.getManagementClient();
         loadForManagementClient(managementClient, values);
-
         if (!managementClient.checkConnect()) {
-            logger.error("management disconnect!");
+            String errMsg = "管理端无法连接！";
+            logger.error("updateAlgorithm() method .message={}, ", errMsg);
+            logger.error("");
             result.setCode(400);
-            result.setMsg("management disconnect!");
+            result.setMsg(errMsg);
             result.setData(null);
             return result;
         }
@@ -60,7 +64,8 @@ public class EarningServiceImpl extends BaseServiceImpl implements EarningServic
         try {
             result = objectMapper.readValue(response.getBody(), Result.class);
         } catch (IOException e) {
-            logger.error("response 解析失败！");
+            String errMsg = "response 解析失败！";
+            logger.error("updateAlgorithm() method .message={}", errMsg, e);
             throw new RuntimeException(e);
         }
         return result;

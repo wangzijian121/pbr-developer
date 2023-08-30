@@ -2,37 +2,31 @@ package com.zlht.pbr.algorithm.developer.api.developer.service;
 
 
 import com.zlht.pbr.algorithm.developer.api.base.BaseServiceI;
-import com.zlht.pbr.algorithm.developer.dao.entity.Session;
-import com.zlht.pbr.algorithm.developer.dao.entity.User;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface SessionServiceI extends BaseServiceI {
-
-    /**
-     * get user session from request
-     *
-     * @param userId userId
-     * @return session
-     */
-    Session getSessionByUserId(int  userId);
 
     /**
      * create session
      *
-     * @param userId int
-     * @param ip     ip
-     * @return session string
+     * @param userId
+     * @param ip
+     * @param sessionId
+     * @return
      */
     String createSession(int userId, String ip, String sessionId);
 
 
     /**
      * sign out
-     * remove ip restrictions
      *
-     * @param ip        no use
-     * @param userId login user
+     * @param ip
+     * @param userId
+     * @return
      */
-    Map<String, Object> signOut(String ip, int userId );
+    Map<String, Object> signOut(String ip, int userId);
 }

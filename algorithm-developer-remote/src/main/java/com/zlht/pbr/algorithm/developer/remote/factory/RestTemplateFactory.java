@@ -3,6 +3,9 @@ package com.zlht.pbr.algorithm.developer.remote.factory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * @author zi jian Wang
+ */
 public class RestTemplateFactory {
 
     public static RestTemplate getRestTemplate() {

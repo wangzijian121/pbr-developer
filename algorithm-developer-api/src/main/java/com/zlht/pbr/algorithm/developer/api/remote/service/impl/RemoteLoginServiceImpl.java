@@ -3,8 +3,8 @@ package com.zlht.pbr.algorithm.developer.api.remote.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zlht.pbr.algorithm.developer.api.base.impl.BaseServiceImpl;
 import com.zlht.pbr.algorithm.developer.api.developer.service.SessionServiceI;
-import com.zlht.pbr.algorithm.developer.enums.Status;
 import com.zlht.pbr.algorithm.developer.api.remote.service.RemoteLoginServiceI;
+import com.zlht.pbr.algorithm.developer.enums.Status;
 import com.zlht.pbr.algorithm.developer.remote.client.ManagementClient;
 import com.zlht.pbr.algorithm.developer.remote.factory.ManagementClientFactory;
 import com.zlht.pbr.algorithm.developer.remote.model.RemoteResult;
@@ -20,7 +20,9 @@ import org.springframework.util.MultiValueMap;
 import java.io.IOException;
 import java.util.Map;
 
-
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class RemoteLoginServiceImpl extends BaseServiceImpl implements RemoteLoginServiceI {
 
@@ -58,9 +60,8 @@ public class RemoteLoginServiceImpl extends BaseServiceImpl implements RemoteLog
         }
         Result<Map<String, Object>> result = new Result(remoteResult.getCode(), remoteResult.getMsg(), remoteResult.getData());
 
-        //Save sessionId from  remote return
         if (result.getCode() == Status.SUCCESS.getCode()) {
-            String sessionId = result.getData().get("session_id").toString();
+            String sessionId = result.getData().get("sessionId").toString();
             int userId = Integer.parseInt(result.getData().get("id").toString());
             sessionServiceI.createSession(userId, ip, sessionId);
         }
@@ -68,7 +69,7 @@ public class RemoteLoginServiceImpl extends BaseServiceImpl implements RemoteLog
     }
 
     @Override
-    public Result logout(String ip, int useId,MultiValueMap<String, String> values) {
+    public Result logout(String ip, int useId, MultiValueMap<String, String> values) {
         ManagementClient managementClient = managementClientFactory.getManagementClient();
         managementClient.setClientHeader("X-Real-IP", ip);
         loadForManagementClient(managementClient, values);

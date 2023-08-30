@@ -17,12 +17,16 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
+/**
+ * @author zi jian Wang
+ */
 @Data
 @Component
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class ManagementClient {
+
 
     private String requestType;
     private Integer timeOut;
@@ -38,7 +42,7 @@ public class ManagementClient {
         int port = managementConfiguration.getPort();
         try (Socket socket = new Socket()) {
             InetSocketAddress endpoint = new InetSocketAddress(ip, port);
-            socket.connect(endpoint, 1000); // 设置连接超时时间为1秒
+            socket.connect(endpoint, 1000);
             return true;
         } catch (IOException e) {
             return false;
@@ -48,10 +52,17 @@ public class ManagementClient {
     /**
      * 发送请求
      */
-    public ResponseEntity<String> sendRequest(String suffix, HttpMethod httpMethod, HttpEntity requestEntity ) {
-        RestTemplate restTemplate = RestTemplateFactory.getRestTemplate();
-        String url = requestType + managementConfiguration.getIp() + ":" + managementConfiguration.getPort() + "/" + suffix;
-        ResponseEntity<String> responseEntity = restTemplate.exchange(url, httpMethod, requestEntity, String.class);
+    public ResponseEntity<String> sendRequest(String suffix, HttpMethod httpMethod, HttpEntity requestEntity) {
+        RestTemplate restTemplate = null;
+        String url;
+        ResponseEntity<String> responseEntity = null;
+        try {
+            restTemplate = RestTemplateFactory.getRestTemplate();
+            url = requestType + managementConfiguration.getIp() + ":" + managementConfiguration.getPort() + "/" + suffix;
+            responseEntity = restTemplate.exchange(url, httpMethod, requestEntity, String.class);
+        } catch (Exception e) {
+            throw new RuntimeException("请求异常！", e);
+        }
         return responseEntity;
     }
 

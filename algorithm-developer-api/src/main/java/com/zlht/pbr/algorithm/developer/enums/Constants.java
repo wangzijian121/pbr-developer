@@ -1,5 +1,8 @@
 package com.zlht.pbr.algorithm.developer.enums;
 
+/**
+ * @author zi jian Wang
+ */
 public final class Constants {
 
     /**

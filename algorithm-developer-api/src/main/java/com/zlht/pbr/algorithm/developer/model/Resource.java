@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * @author zi jian Wang
+ */
 @Data
 @NoArgsConstructor
 public class Resource {
@@ -24,7 +27,7 @@ public class Resource {
     private String alias;
 
     /**
-     *suffix : .zip
+     * suffix : .zip
      */
     private String suffix;
     /**
@@ -44,11 +47,11 @@ public class Resource {
     @ApiModelProperty(value = "更新时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date updateTime;
 
-    public Resource(String fullName, String alias, String  suffix, long size, Date createTime, Date updateTime) {
+    public Resource(String fullName, String alias, String suffix, long size, Date createTime, Date updateTime) {
 
         this.fullName = fullName;
         this.alias = alias;
-        this.suffix=suffix;
+        this.suffix = suffix;
         this.size = size;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -65,7 +68,7 @@ public class Resource {
 
         Resource resource = (Resource) o;
 
-        if (id != resource.id) {
+        if (!id.equals(resource.id)) {
             return false;
         }
         return alias.equals(resource.alias);

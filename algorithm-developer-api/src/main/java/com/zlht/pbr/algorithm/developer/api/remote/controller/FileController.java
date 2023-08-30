@@ -19,10 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @RestController
-@Api(tags = "开发者-文件管理", description = "开发者-文件管理")
+@Api(tags = "开发者-文件管理")
 public class FileController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(FileController.class);

@@ -21,6 +21,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class ReviewServiceImpl extends BaseServiceImpl<Review> implements ReviewServicesI {
 

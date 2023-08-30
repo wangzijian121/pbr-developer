@@ -8,23 +8,26 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+/**
+ * @author zi jian Wang
+ */
 @Configuration
 public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.OAS_30) // v2 不同
-                .apiInfo(Developer())
+        return new Docket(DocumentationType.OAS_30)
+                .apiInfo(developer())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.zlht.pbr.algorithm.developer.api")) // 设置扫描路径
+                .apis(RequestHandlerSelectors.basePackage("com.zlht.pbr.algorithm.developer.api"))
                 .build();
     }
 
-    private ApiInfo Developer() {
+    private ApiInfo developer() {
         return new ApiInfoBuilder()
-                .title("AI体态识别系统-算法开发者") // 设置文档标题
-                .description("AI body recognition system-algorithm- developer interface") // 设置文档描述
-                .version("1.0.0") // 设置文档版本
+                .title("AI体态识别系统-算法开发者")
+                .description("AI body recognition system-algorithm- developer interface")
+                .version("1.0.0")
                 .build();
     }
 }

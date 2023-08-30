@@ -1,10 +1,9 @@
 package com.zlht.pbr.algorithm.developer.interceptor;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zlht.pbr.algorithm.developer.api.base.BaseController;
 import com.zlht.pbr.algorithm.developer.dao.entity.Session;
 import com.zlht.pbr.algorithm.developer.dao.mapper.SessionMapper;
-import com.zlht.pbr.algorithm.developer.dao.mapper.UserMapper;
-import com.zlht.pbr.algorithm.developer.api.base.BaseController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +16,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
+/**
+ * @author zi jian Wang
+ */
 public class LoginHandlerInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = LogManager.getLogger(LoginHandlerInterceptor.class);
     @Value("${session.timeout}")
     private int sessionTimeout;
 
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private SessionMapper sessionMapper;

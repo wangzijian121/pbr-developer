@@ -1,4 +1,3 @@
-
 package com.zlht.pbr.algorithm.developer.enums;
 
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -7,12 +6,23 @@ import java.util.Locale;
 import java.util.Optional;
 
 /**
- * status enum      // todo #4855 One category one interval
+ * status enum
+ *
+ * @author zi jian Wang
  */
 public enum Status {
 
+    /**
+     * 成功
+     */
     SUCCESS(200, "success", "成功"),
+    /**
+     * 请求参数[{0}]无效
+     */
     REQUEST_PARAMS_NOT_VALID_ERROR(10001, "request parameter {0} is not valid", "请求参数[{0}]无效"),
+    /**
+     * 当前用户没有操作权限
+     */
     USER_NO_OPERATION_PERM(30001, "user has no operation privilege", "当前用户没有操作权限"),
     ;
 
