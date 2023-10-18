@@ -18,7 +18,7 @@ JAVA_OPTS=${JAVA_OPTS:-"-server -Duser.timezone=${SPRING_JACKSON_TIME_ZONE}
 
 nohup $JAVA_HOME/bin/java $JAVA_OPTS \
   -cp "$PROJECT_HOME/conf":"$PROJECT_HOME/libs/*" \
-  com.zlht.pbr.algorithm.management.AlgorithmDeveloperApi >/dev/null 2>&1 &
+  com.zlht.pbr.algorithm.developer.AlgorithmDeveloperApi >/dev/null 2>&1 &
 
 if [ $? -eq 0 ]; then
   echo "Application started successfully."
